@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactPaginate from 'react-paginate'
-import AuthorTerm from '../AuthorTerm/authorTerm';
+import BookTerm from '../BookTerm/bookTerm';
 import {Link} from 'react-router-dom';
-class Authors extends React.Component {
+
+class Books extends React.Component {
     constructor(props) {
         super(props);
 
@@ -10,14 +11,16 @@ class Authors extends React.Component {
             page: 0,
             size: 5
         }
+
     }
+
 
     render() {
 
         const offset = this.state.size * this.state.page;
         const nextPageOffset = offset + this.state.size;
-        const pageCount = Math.ceil(this.props.authors.length / this.state.size);
-        const authors = this.getAuthorsPage(offset, nextPageOffset);
+        const pageCount = Math.ceil(this.props.books.length / this.state.size);
+        const books = this.getBooksPage(offset, nextPageOffset);
 
         return (
             <div className={"container m-md-4"}>
@@ -27,42 +30,37 @@ class Authors extends React.Component {
                             <thead>
                             <tr>
                                 <th scope={"col"}>Name</th>
-                                <th scope={"col"}>Surname</th>
-                                <th scope={"col"}>Country</th>
+                                <th scope={"col"}>Category</th>
+                                <th scope={"col"}>Author</th>
+                                <th scope={"col"}>Available Copies</th>
                             </tr>
 
                             </thead>
                             <tbody>
-                            {authors}
+                            {books}
                             </tbody>
                         </table>
                     </div>
-                </div>
-                <div className="col mb-2">
-                    <div className="row">
-                        <div className="col-sm-12 text-center">
-                            <Link className="btn btn-info col-5"
-                                  to={"/authors/add"}> Add new Author</Link>
+                    <div className="col mb-2">
+                        <div className="row">
+                            <div className="col-sm-12 text-center">
+                                <Link className="btn btn-info col-5"
+                                      to={"/books/add"}> Add new Book</Link>
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <ReactPaginate previousLabel={"<<"}
-                               nextLabel={">>"}
+                <ReactPaginate previousLabel={"back"}
+                               nextLabel={"next"}
+                               breakLabel={<a href="/#">...</a>}
                                breakClassName={"break-me"}
+                               pageClassName={"ml-1"}
                                pageCount={pageCount}
                                marginPagesDisplayed={2}
                                pageRangeDisplayed={5}
-                               pageClassName="page-item"
-                               previousClassName="page-item"
-                               nextClassName="page-item"
-                               pageLinkClassName="page-link"
-                               previousLinkClassName="page-link"
-                               nextLinkClassName="page-link"
-                               activeClassName={"active"}
                                onPageChange={this.handlePageClick}
                                containerClassName={"pagination m-4 justify-content-center"}
-                               activeClass={"active"}/>
+                               activeClassName={"active"}/>
 
             </div>
         )
@@ -75,15 +73,17 @@ class Authors extends React.Component {
         })
     }
 
-    getAuthorsPage = (offset, nextPageOffset) => {
-        return this.props.authors.map((term) => {
+    getBooksPage = (offset, nextPageOffset) => {
+        return this.props.books.map((term) => {
             return(
-                <AuthorTerm term={term} onDeleteAuthor={this.props.onDeleteAuthor}/>
+                <BookTerm term={term} onDeleteBook={this.props.onDeleteBook}
+                          onselectBook={this.props.onselectBook}
+                          onMarkAsTaken={this.props.onMarkAsTaken}/>
             );
-        }).filter((author, index)=> {
+        }).filter((book, index)=> {
             return index>=offset && index<nextPageOffset;
         })
     }
 
 }
-export default Authors;
+export default Books;
