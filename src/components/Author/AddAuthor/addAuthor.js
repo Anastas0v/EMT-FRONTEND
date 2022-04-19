@@ -25,7 +25,7 @@ const AuthorAdd = (props) => {
 
 
         props.onAddAuthor(name, surname, country);
-        history.push("/authors");
+        history("/authors");
     }
 
     return (

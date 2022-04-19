@@ -26,7 +26,7 @@ const BookEdit = (props) => {
         const availableCopies = formData.availableCopies !== 0 ? formData.availableCopies : props.book.availableCopies;
 
         props.onEditBook(props.book.id, name, category, author, availableCopies);
-        history.push("/books");
+        history("/books");
     }
 
     return(

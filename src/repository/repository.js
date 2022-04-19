@@ -2,6 +2,7 @@ import axios from '../custom-axios/axios';
 
 const libraryService = {
     fetchBooks: () => {
+        console.log(axios);
         return axios.get("/books");
     },
     fetchAuthors: () => {
@@ -11,7 +12,7 @@ const libraryService = {
         return axios.get("/countries");
     },
     fetchCategories: () => {
-        return axios.get("/books/categories");
+        return axios.get("/categories");
     },
     deleteBook: (id) => {
         return axios.delete(`/books/delete/${id}`);
@@ -20,7 +21,7 @@ const libraryService = {
         return axios.post("/books/add", {
             "name" : name,
             "category" : category,
-            "author" : author,
+            "authorId" : author,
             "availableCopies" : availableCopies
         });
     },
@@ -36,13 +37,13 @@ const libraryService = {
         return axios.get(`/books/${id}`);
     },
     markBookAsTaken: (id) => {
-        return axios.put(`/books/markAsTaken/${id}`);
+        return axios.put(`/books/taken/${id}`);
     },
     addAuthor: (name, surname, country) => {
         return axios.post(`/authors/add`,{
             "name": name,
             "surname" : surname,
-            "country" : country
+            "countryId" : country
         })
     },
     deleteAuthor: (id) => {

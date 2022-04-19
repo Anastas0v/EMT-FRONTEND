@@ -23,7 +23,7 @@ const CountryAdd = (props) => {
 
 
         props.onAddCountry(name, continent);
-        history.push("/countries");
+        history("/countries");
     }
 
     return (

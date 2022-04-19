@@ -1,6 +1,6 @@
 import './App.css';
 import React, {Component} from "react";
-import {BrowserRouter as Router, Navigate, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Navigate, Route, Routes} from 'react-router-dom'
 import Authors from '../Author/ListAuthor/listAuthors';
 import Countries from '../Country/ListCountry/listCountries';
 import Books from '../Book/ListBook/listBooks';
@@ -30,34 +30,27 @@ class App extends Component {
           <Header/>
           <main>
             <div className="container">
-              <Route path={"/countries/add"} exact render ={() =>
-                  <CountryAdd onAddCountry={this.addCountry}/>}/>
-              <Route path={"/countries"} exact render = {() =>
-                  <Countries countries = {this.state.countries}
-                             onDeleteCountry={this.deleteCountry}/>}/>
-              <Route path={"/authors/add"} exact render = {() =>
-                  <AuthorAdd  countries={this.state.countries}
-                              onAddAuthor={this.addAuthor}/>}/>
-              <Route path={"/authors"} exact render = {() =>
-                  <Authors authors = {this.state.authors}
-                           onDeleteAuthor={this.deleteAuthor}/>}/>
-              <Route path={"/books/add"} exact render={() =>
-                  <BookAdd
+              <Routes>
+                  <Route path={"/countries/add"} element={<CountryAdd onAddCountry={this.addCountry}/>}/>
+                  <Route path={"/countries"} element={<Countries countries = {this.state.countries}
+                                                                 onDeleteCountry={this.deleteCountry}/>}/>
+                  <Route path={"/authors/add"} element={<AuthorAdd  countries={this.state.countries}
+                                                                    onAddAuthor={this.addAuthor}/>}/>
+                  <Route path={"/authors"} element={<Authors authors = {this.state.authors}
+                                                             onDeleteAuthor={this.deleteAuthor}/>}/>
+                  <Route path={"/books/add"} element={<BookAdd
                       categories={this.state.categories}
                       authors={this.state.authors}
                       onAddBook={this.addBook}/>}/>
-              <Route path={"/books/edit/:id"} exact render = {() =>
-                  <BookEdit  categories={this.state.categories}
-                             authors={this.state.authors}
-                             book={this.state.selectedBook}
-                             onEditBook={this.editBook}/>}/>
-              <Route path={["/", "/books"]} exact render={() =>
-                  <Books books={this.state.books}
-                         onDeleteBook={this.deleteBook}
-                         onMarkAsTaken={this.markBookAsTaken}
-                         onselectBook={this.getBook}/>
-              }/>
-              <Navigate to={"/"}/>
+                  <Route path={"/books/edit/:id"} element={<BookEdit  categories={this.state.categories}
+                                                                      authors={this.state.authors}
+                                                                      book={this.state.selectedBook}
+                                                                      onEditBook={this.editBook}/>}/>
+                  <Route path={"/books"} element={<Books books={this.state.books}
+                                                                onDeleteBook={this.deleteBook}
+                                                                onMarkAsTaken={this.markBookAsTaken}
+                                                                onselectBook={this.getBook}/>}/>
+              </Routes>
             </div>
           </main>
         </Router>

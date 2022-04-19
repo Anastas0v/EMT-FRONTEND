@@ -50,17 +50,22 @@ class Books extends React.Component {
                         </div>
                     </div>
                 </div>
-                <ReactPaginate previousLabel={"back"}
-                               nextLabel={"next"}
-                               breakLabel={<a href="/#">...</a>}
+                <ReactPaginate previousLabel={"<<"}
+                               nextLabel={">>"}
                                breakClassName={"break-me"}
-                               pageClassName={"ml-1"}
                                pageCount={pageCount}
                                marginPagesDisplayed={2}
                                pageRangeDisplayed={5}
+                               pageClassName="page-item"
+                               previousClassName="page-item"
+                               nextClassName="page-item"
+                               pageLinkClassName="page-link"
+                               previousLinkClassName="page-link"
+                               nextLinkClassName="page-link"
+                               activeClassName={"active"}
                                onPageChange={this.handlePageClick}
                                containerClassName={"pagination m-4 justify-content-center"}
-                               activeClassName={"active"}/>
+                               activeClass={"active"}/>
 
             </div>
         )
